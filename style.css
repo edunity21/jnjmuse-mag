@@ -882,3 +882,7 @@ ol,ul{list-style:none}
   .mb-qr figcaption{margin-top:0}
 }
 @media print{.manual-band{break-inside:avoid}}
+
+/* 03 시연 · 직접 해 보기 */
+.try-live{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:16px}
+.try-live span{font-size:13px;color:var(--mute)}
