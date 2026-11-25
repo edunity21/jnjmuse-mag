@@ -173,4 +173,44 @@
     if (navigator.clipboard) navigator.clipboard.writeText(data.url).then(function () { done('주소를 복사했습니다'); }, function () { done(data.url); });
     else done(data.url);
   });
+  /* 12. 서·논술형 문항 탭 */
+  var qtabs = $$('.qtabs [role="tab"]');
+  var showQ = function (b) {
+    qtabs.forEach(function (x) {
+      var on = x === b;
+      x.setAttribute('aria-selected', on ? 'true' : 'false');
+      x.tabIndex = on ? 0 : -1;
+      var p = document.getElementById(x.getAttribute('aria-controls'));
+      if (p) p.hidden = !on;
+    });
+  };
+  qtabs.forEach(function (b, i) {
+    b.addEventListener('click', function () { showQ(b); });
+    b.addEventListener('keydown', function (e) {
+      var k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!k) return;
+      var n = qtabs[(i + k + qtabs.length) % qtabs.length]; n.focus(); showQ(n);
+    });
+  });
+  if (qtabs.length) showQ(qtabs[0]);
+
+  /* 13. 문항 세트 표에서 고르면 해당 카드를 펼친다 */
+  var openSet = function (id) {
+    var d = document.getElementById(id);
+    if (d && d.tagName === 'DETAILS') d.open = true;
+  };
+  $$('a[href^="#set-"]').forEach(function (a) {
+    a.addEventListener('click', function () { openSet(a.getAttribute('href').slice(1)); });
+  });
+  if (/^#set-/.test(location.hash)) openSet(location.hash.slice(1));
+
+  /* 14. 인쇄할 때는 접힌 내용과 다른 문항 탭을 모두 편다 */
+  window.addEventListener('beforeprint', function () {
+    $$('details').forEach(function (d) { d.setAttribute('data-was', d.open ? '1' : '0'); d.open = true; });
+    $$('.qpanel').forEach(function (p) { p.hidden = false; });
+  });
+  window.addEventListener('afterprint', function () {
+    $$('details[data-was]').forEach(function (d) { d.open = d.getAttribute('data-was') === '1'; d.removeAttribute('data-was'); });
+    var sel = $('.qtabs [aria-selected="true"]'); if (sel) showQ(sel);
+  });
 })();
