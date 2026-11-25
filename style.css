@@ -853,3 +853,32 @@ ol,ul{list-style:none}
   .qset>summary::after,.sub-d summary::before{display:none}
   .walls article,.qitem,.src-box,.sheet,.paper,.why li,.fair li{break-inside:avoid}
 }
+
+/* ── 06 적용 · 수업 매뉴얼 ── */
+.manual-band{display:grid;grid-template-columns:1fr 196px;gap:30px;align-items:center;margin:40px 0 8px;background:#fff;border:1px solid var(--line2);border-top:3px solid var(--point);padding:22px 26px 22px}
+.manual-band .kicker{color:var(--point)}
+.manual-band h3{font-size:23px;font-weight:900;line-height:1.35;letter-spacing:-.01em;margin:6px 0 8px}
+.manual-band .mb-text>p:not(.kicker){font-size:15px;color:#333}
+.mb-two{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:16px;border-top:2px solid var(--ink)}
+.mb-two a{display:block;padding:11px 16px 12px 0;text-decoration:none;border-bottom:1px solid var(--line2);min-width:0}
+.mb-two a+a{padding-left:16px;border-left:1px solid var(--line2)}
+.mb-two b{display:flex;justify-content:space-between;align-items:baseline;font-size:16px;font-weight:900}
+.mb-two b::after{content:"↗";font-family:var(--en);font-size:14px;color:var(--mute)}
+.mb-two span{display:block;font-size:13.5px;color:var(--mute);line-height:1.6;margin-top:3px;word-break:keep-all}
+.mb-two a:hover b{color:var(--point)}
+.mb-two a:hover b::after{color:var(--point)}
+.mb-foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:16px}
+.mb-url{font-family:var(--mono);font-size:12px;color:var(--mute)}
+.mb-qr{margin:0;text-align:center}
+.mb-qr img{display:block;width:100%;max-width:180px;height:auto;margin:0 auto;border:1px solid var(--line2);image-rendering:pixelated}
+.mb-qr figcaption{font-size:12px;color:var(--mute);line-height:1.5;margin-top:8px}
+@media (max-width:760px){
+  .manual-band{grid-template-columns:1fr;gap:20px;padding:18px 16px 20px}
+  .manual-band h3{font-size:20px}
+  .mb-two{grid-template-columns:1fr}
+  .mb-two a+a{padding-left:0;border-left:0}
+  .mb-qr{display:flex;align-items:center;gap:14px;text-align:left;border-top:1px solid var(--line2);padding-top:16px}
+  .mb-qr img{width:112px;max-width:112px;margin:0;flex:none}
+  .mb-qr figcaption{margin-top:0}
+}
+@media print{.manual-band{break-inside:avoid}}
